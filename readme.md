@@ -25,7 +25,7 @@ run 'node app.js' in the command line. follow the prompts provided and you will 
 ## Usage
 After running the file app.js, you will have a generated team.html file in the output folder to use as a way to display your team information. I have also added a style.css file to use along with the html file.
 
-## Sample of team.html
+## Video Walk-through
 
 //link to video walkthrough
 
@@ -44,7 +44,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 If you have any questions please contact madehopemorr@gmail.com
 
-//link to github
+https://github.com/madehopemorr/blue-jay
 
 
 
