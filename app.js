@@ -232,7 +232,7 @@ function appMenu() {
                 }
             }
         ]).then(answers => {
-            const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.intern.School);
+            const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
             teamMembers.push(intern);
             idArray.push(answers.internId);
             createTeam();
