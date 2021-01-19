@@ -23,7 +23,7 @@ In order to run the program...
 run 'node app.js' in the command line. follow the prompts provided and you will begin generating your team.html. Your completed file will be located in the output folder.
 
 ## Usage
-After running the file app.js, you will have a generated team.html file in the output folder to use as a way to display your team information.
+After running the file app.js, you will have a generated team.html file in the output folder to use as a way to display your team information. I have also added a style.css file to use along with the html file.
 
 ## Sample of team.html
 
