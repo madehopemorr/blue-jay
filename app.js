@@ -52,7 +52,7 @@ function appMenu() {
                 message: "What is your manager's email?",
                 validate: answer => {
                     const pass = answer.match(
-                        /\+@\S+\.\S+/
+                        /\S+@\S+\.\S+/
                     );
                     if (pass) {
                         return true;
