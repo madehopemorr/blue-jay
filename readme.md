@@ -26,8 +26,8 @@ run 'node app.js' in the command line. follow the prompts provided and you will 
 After running the file app.js, you will have a generated team.html file in the output folder to use as a way to display your team information. I have also added a style.css file to use along with the html file.
 
 ## Video Walk-through
-
-//link to video walkthrough
+Here is a link to a video walk-through. The end shows a sample of the created webpage in the browser.
+https://drive.google.com/file/d/1yXSfXxlgX7k5wa7z8n20KsE7RXZw_heo/view
 
 ## License
 The MIT License (MIT)
