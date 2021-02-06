@@ -11,14 +11,17 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-const teamMembers = [];
-const idArray = [];
+//variable that takes in the array of team members
+const myTeam = [];
 
-function appMenu() {
+//variable that takes in array of team member's ids.
+const memberId = [];
 
-    function createManager() {
+//function that runs app
+function mainMenu() {
+
+//function with manager object that uses inquirer prompts to allow user to input answers of managers name, id, email, and office number.
+    function myManager() {
         console.log("Build your team");
         inquirer.prompt([
             {
@@ -74,15 +77,20 @@ function appMenu() {
                     return "Please enter a positive number greater than zero.";
                 }
             }
+        //takes the inputted answers and pushes/assigns the new team members and their new id to the created manager.
         ]).then(answers => {
+            //this manager varialbe takes in the inputted answers for new manager and assigns them to the variable (name, id, email..)
             const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
-            teamMembers.push(manager);
-            idArray.push(answers.managerId);
-            createTeam();
+            //takes new team member and assigns them to manager
+            myTeam.push(manager);
+            //takes in managers id 
+            memberId.push(answers.managerId);
+            //calls makeTeam function and starts inquirer prompts
+            makeTeam();
         });
     }
-
-    function createTeam() {
+    //function that allows user to add specific team members and assign their details
+    function makeTeam() {
 
         inquirer.prompt([
             {
@@ -95,21 +103,22 @@ function appMenu() {
                     "I don't want to add any more team members"
                 ]
             }
-        ]).then(userChoice => {
-            switch(userChoice.memberChoice) {
+        //brings up prompt that allows user to then choose if they want to add a team member of any of the specified positions
+        ]).then(userInput => {
+            switch(userInput.memberChoice) {
             case "Engineer":
-                addEngineer();
+                newEngineer();
                 break;
             case "Intern":
-                addIntern();
+                newIntern();
                 break;
             default:
                 buildTeam();
             }
         });
     }
-
-    function addEngineer() {
+    //function that runs prompts to add a new engineer to team along with assigning their details
+    function newEngineer() {
         inquirer.prompt([
             {
                 type: "input",
@@ -131,7 +140,7 @@ function appMenu() {
                         /^[1-9]\d*$/
                     );
                     if (pass) {
-                        if (idArray.includes(answer)) {
+                        if (memberId.includes(answer)) {
                             return "This ID is already taken. Please enter a different number.";
                         } else {
                             return true;
@@ -166,15 +175,17 @@ function appMenu() {
                     return "Please enter at least one character.";
                 }
             }
+        //pushes newly inputted answers to the newly created engineer.
         ]).then(answers => {
             const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
-            teamMembers.push(engineer);
-            idArray.push(answers.engineerId);
-            createTeam();
+            myteam.push(engineer);
+            memberId.push(answers.engineerId);
+            //updating the team
+            makeTeam();
         });
     }
-
-    function addIntern() {
+//function running prompts to create new intern & intern's details
+    function newIntern() {
         inquirer.prompt([
             {
                 type: "input",
@@ -184,6 +195,7 @@ function appMenu() {
                     if (answer !== "") {
                         return true;
                     }
+                    //doesnt allow user to enter a blank when asked for name
                     return "Please enter at least one character.";
                 }
             },
@@ -196,7 +208,8 @@ function appMenu() {
                         /^[1-9]\d*$/
                     );
                     if (pass) {
-                        if (idArray.includes(answer)) {
+                        //doesnt allow two team members to have same id
+                        if (memberId.includes(answer)) {
                             return "This ID is already taken. Please enter a different number.";
                         } else {
                             return true;
@@ -231,45 +244,25 @@ function appMenu() {
                     return "Please enter at least one character.";
                 }
             }
+        //takes user answers and pushes them to newly created intern team member along with their name, id, etc.
         ]).then(answers => {
             const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
-            teamMembers.push(intern);
-            idArray.push(answers.internId);
-            createTeam();
+            myTeam.push(intern);
+            memberId.push(answers.internId);
+            makeTeam();
         });
     }
-
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
+//creates output path and renders myTeam object 
     function buildTeam() {
         //output needs to be created
         if (!fs.existsSync(OUTPUT_DIR)) {
             fs.mkdirSync(OUTPUT_DIR)
         }
-        fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
+        fs.writeFileSync(outputPath, render(myTeam), "utf-8");
     }
-
-    createManager();
+    //asks who is the manager first before allowing user to add more positions
+    myManager();
 
 }
-
-appMenu();
-
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+//takes user back to the main menu after each new update
+mainMenu();
