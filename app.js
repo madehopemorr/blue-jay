@@ -4,10 +4,13 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-
+//creates an output directory that will be used in the buildTeam function to sync & make the output path for directory.
 const OUTPUT_DIR = path.resolve(__dirname, "output");
+
+//this path joins the output directory with the team.html
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+//requires the htmlRenderer.js 
 const render = require("./lib/htmlRenderer");
 
 
@@ -106,6 +109,7 @@ function mainMenu() {
         //brings up prompt that allows user to then choose if they want to add a team member of any of the specified positions
         ]).then(userInput => {
             switch(userInput.memberChoice) {
+                //gives user the choice to add employees under different roles
             case "Engineer":
                 newEngineer();
                 break;
@@ -117,7 +121,7 @@ function mainMenu() {
             }
         });
     }
-    //function that runs prompts to add a new engineer to team along with assigning their details
+    //function that runs prompts to add a new engineer to team along with assigning their newly inputted details
     function newEngineer() {
         inquirer.prompt([
             {
@@ -252,7 +256,7 @@ function mainMenu() {
             makeTeam();
         });
     }
-//creates output path and renders myTeam object 
+//function that renders myTeam object and uses fs to sync & make directory for output. 
     function buildTeam() {
         //output needs to be created
         if (!fs.existsSync(OUTPUT_DIR)) {
