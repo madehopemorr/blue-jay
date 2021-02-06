@@ -182,7 +182,7 @@ function mainMenu() {
         //pushes newly inputted answers to the newly created engineer.
         ]).then(answers => {
             const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
-            myteam.push(engineer);
+            myTeam.push(engineer);
             memberId.push(answers.engineerId);
             //updating the team
             makeTeam();
